@@ -1,21 +1,28 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "C5CB5D8DE1CE3981C86A4DF33676494EC382F0E9",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "744FCA21051EDE9CB0E8A1F09431D33FAF7E6051",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "C5CB5D8DE1CE3981C86A4DF33676494EC382F0E9" : 0,
-    "D23B21DF1D27C23C584C6AE9605756B5F2DC38FA" : 0
+    "744FCA21051EDE9CB0E8A1F09431D33FAF7E6051" : 0,
+    "D23B21DF1D27C23C584C6AE9605756B5F2DC38FA" : 0,
+    "C5CB5D8DE1CE3981C86A4DF33676494EC382F0E9" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "731F3B32-4379-42AD-9DE2-6818A4B25B5A",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "C5CB5D8DE1CE3981C86A4DF33676494EC382F0E9" : "elite\/",
-    "D23B21DF1D27C23C584C6AE9605756B5F2DC38FA" : "elite\/Elite\/"
+    "744FCA21051EDE9CB0E8A1F09431D33FAF7E6051" : "app\/",
+    "D23B21DF1D27C23C584C6AE9605756B5F2DC38FA" : "elite\/Elite\/",
+    "C5CB5D8DE1CE3981C86A4DF33676494EC382F0E9" : "elite\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Elite",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Elite.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/sorrowllj\/app.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "744FCA21051EDE9CB0E8A1F09431D33FAF7E6051"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/sorrowllj\/Elite.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
