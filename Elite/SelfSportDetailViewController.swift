@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SelfSportDetailViewController: UIViewController , SelfSportTabBarDelegate ,InputViewDelegate {
+class SelfSportDetailViewController: UIViewController , SelfSportTabBarDelegate ,InputViewDelegate ,HZPhotoBrowserDelegate{
     
     var SelfSportDetail:AVObject?
     
@@ -47,6 +47,7 @@ class SelfSportDetailViewController: UIViewController , SelfSportTabBarDelegate 
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     /**
      点赞初始化
      */
@@ -99,6 +100,10 @@ class SelfSportDetailViewController: UIViewController , SelfSportTabBarDelegate 
         }else{
             self.SportDetailView?.More?.text = "65个喜欢.5次评论.12次浏览"
         }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(SelfSportDetailViewController.photoBrowser as (SelfSportDetailViewController) -> () -> ()))
+        self.SportDetailView?.cover?.addGestureRecognizer(tap)
+        self.SportDetailView?.cover?.userInteractionEnabled = true
         
     }
     
@@ -234,6 +239,26 @@ class SelfSportDetailViewController: UIViewController , SelfSportTabBarDelegate 
             
         }
         
+    }
+    
+    /**
+     *  PhotoBrowser
+     */
+    
+    func photoBrowser(){
+        let photoBrowser = HZPhotoBrowser()
+        photoBrowser.imageCount = 1
+        photoBrowser.currentImageIndex = 0
+        photoBrowser.delegate = self
+        photoBrowser.show()
+        
+    }
+    func photoBrowser(browser: HZPhotoBrowser!, placeholderImageForIndex index: Int) -> UIImage! {
+        return self.SportDetailView?.cover?.image
+    }
+    func photoBrowser(browser: HZPhotoBrowser!, highQualityImageURLForIndex index: Int) -> NSURL! {
+        let coverFile = self.SelfSportDetail!["SportPhoto"] as? AVFile
+        return NSURL(string: coverFile!.url)
     }
 
 }

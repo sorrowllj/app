@@ -11,5 +11,7 @@
 #import "InputView.h"
 #import "SWTableViewCell.h"
 #import "LeanCloudFeedback.h"
+#import "HZPhotoBrowser.h"
+
 
 

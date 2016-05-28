@@ -48,6 +48,7 @@ class pushViewController: UIViewController , UITableViewDelegate, UITableViewDat
     
     override func viewDidAppear(animated: Bool) {
         self.navigationView.hidden = false
+        self.HeaderRefresh()
         
     }
     override func viewWillDisappear(animated: Bool) {
@@ -174,9 +175,44 @@ class pushViewController: UIViewController , UITableViewDelegate, UITableViewDat
         cell.hideUtilityButtonsAnimated(true)
         
         let indexPath = self.tableView?.indexPathForCell(cell)
-        print("-----------------------------------")
-        print(indexPath?.row)
-        print(index)
+        let object = self.dataArray[(indexPath?.row)!] as? AVObject
+        
+        if index == 0 { //删除
+            ProgressHUD.show("")
+            
+            let discussQuery = AVQuery(className: "discuss")
+            discussQuery.whereKey("SportObject", equalTo: object)
+            discussQuery.findObjectsInBackgroundWithBlock({ (results, error) in
+                
+                for Sport in results {
+                    let sportObject = Sport as? AVObject
+                    sportObject?.deleteInBackground()
+                }
+            })
+            
+            let LoveQuery = AVQuery(className: "Love")
+            LoveQuery.whereKey("SportObject", equalTo: object)
+            LoveQuery.findObjectsInBackgroundWithBlock({ (results, error) in
+                
+                for Sport in results {
+                    let sportObject = Sport as? AVObject
+                    sportObject?.deleteInBackground()
+                }
+            })
+            
+            object?.deleteInBackgroundWithBlock({ (success, error) in
+                if success {
+                    ProgressHUD.showSuccess("删除成功")
+                    self.dataArray.removeObjectAtIndex((indexPath?.row)!)
+                    self.tableView?.reloadData()
+                    
+                }else{
+                    
+                }
+            })
+            
+            
+        }
         
     }
     
@@ -194,10 +230,15 @@ class pushViewController: UIViewController , UITableViewDelegate, UITableViewDat
         
         query.findObjectsInBackgroundWithBlock { (result, error) in
             self.tableView?.mj_header.endRefreshing()
-            
-            self.dataArray.removeAllObjects()
-            self.dataArray.addObjectsFromArray(result)
-            self.tableView?.reloadData()
+            if error != nil{
+                
+            }else{
+                
+                self.dataArray.removeAllObjects()
+                self.dataArray.addObjectsFromArray(result)
+                self.tableView?.reloadData()
+            }
+
         }
         
     
@@ -217,9 +258,13 @@ class pushViewController: UIViewController , UITableViewDelegate, UITableViewDat
         
         query.findObjectsInBackgroundWithBlock { (result, error) in
             self.tableView?.mj_footer.endRefreshing()
+            if error != nil{
+            
+            }else{
+                self.dataArray.addObjectsFromArray(result)
+                self.tableView?.reloadData()
+            }
 
-            self.dataArray.addObjectsFromArray(result)
-            self.tableView?.reloadData()
         }
         
     }

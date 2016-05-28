@@ -119,10 +119,11 @@ class searchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
         }else{
         cell?.photo?.sd_setImageWithURL(NSURL(string:(coverFile2?.url)!), placeholderImage: UIImage(named: "Cover"))
         }
-        
+       
         return cell!
         
     }
+
     
     
     
@@ -140,11 +141,14 @@ class searchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
         query.findObjectsInBackgroundWithBlock { (result, error) in
             self.tableView?.mj_header.endRefreshing()
             
+            if error != nil{
+            
+            }else{
             self.dataArrays.removeAllObjects()
             self.dataArrays.addObjectsFromArray(result)
             self.tableView?.reloadData()
+            }
         }
-        
         
     }
     /**
@@ -160,10 +164,13 @@ class searchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
         query.includeKey("Users")
         query.findObjectsInBackgroundWithBlock { (result, error) in
             self.tableView?.mj_footer.endRefreshing()
+            if error != nil{
             
-            
-            self.dataArrays.addObjectsFromArray(result)
-            self.tableView?.reloadData()
+            }else{
+                self.dataArrays.addObjectsFromArray(result)
+                self.tableView?.reloadData()
+            }
+
         }
         
         

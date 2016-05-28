@@ -141,10 +141,13 @@ class AllCommentViewController: UIViewController ,UITableViewDelegate,UITableVie
         query.includeKey("SportObject")
         query.findObjectsInBackgroundWithBlock { (results, error) -> Void in
             self.tableView?.mj_header.endRefreshing()
+            if error != nil{
             
+            }else{
             self.dataArray.removeAllObjects()
             self.dataArray.addObjectsFromArray(results)
             self.tableView?.reloadData()
+            }
         }
     }
     func footerRefresh(){
@@ -158,8 +161,13 @@ class AllCommentViewController: UIViewController ,UITableViewDelegate,UITableVie
         query.includeKey("SportObject")
         query.findObjectsInBackgroundWithBlock { (results, error) -> Void in
             self.tableView?.mj_footer.endRefreshing()
-            self.dataArray.addObjectsFromArray(results)
-            self.tableView?.reloadData()
+            if error != nil{
+            
+            }else{
+                self.dataArray.addObjectsFromArray(results)
+                self.tableView?.reloadData()
+            }
+
         }
     }
     

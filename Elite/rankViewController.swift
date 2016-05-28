@@ -58,11 +58,13 @@ class rankViewController: UIViewController ,UITableViewDelegate, UITableViewData
     
     override func viewDidAppear(animated: Bool) {
         self.navigationView.hidden = false
+        self.HeaderRefresh()
         
     }
     override func viewWillDisappear(animated: Bool) {
         self.navigationView.hidden = true
     }
+
     
     
     func setNavigationBar(){
@@ -157,10 +159,13 @@ class rankViewController: UIViewController ,UITableViewDelegate, UITableViewData
         
         query.findObjectsInBackgroundWithBlock { (result, error) in
             self.tableView?.mj_header.endRefreshing()
+            if error != nil{
             
+            }else{
             self.dataArrays.removeAllObjects()
             self.dataArrays.addObjectsFromArray(result)
             self.tableView?.reloadData()
+            }
         }
         
         
@@ -178,10 +183,14 @@ class rankViewController: UIViewController ,UITableViewDelegate, UITableViewData
         
         query.findObjectsInBackgroundWithBlock { (result, error) in
             self.tableView?.mj_footer.endRefreshing()
+            if error != nil{
             
+            }else{
+                self.dataArrays.addObjectsFromArray(result)
+                self.tableView?.reloadData()
+            }
             
-            self.dataArrays.addObjectsFromArray(result)
-            self.tableView?.reloadData()
+
         }
         
         

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AllSportDetailViewController: UIViewController ,AllSportTabBarDelegate,InputViewDelegate{
+class AllSportDetailViewController: UIViewController ,AllSportTabBarDelegate,InputViewDelegate,HZPhotoBrowserDelegate{
     
     var AllSportDetail:AVObject?
     
@@ -96,6 +96,10 @@ class AllSportDetailViewController: UIViewController ,AllSportTabBarDelegate,Inp
             self.SportDetailView?.More?.text = "65个喜欢.5次评论.12次浏览"
         }
 
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(AllSportDetailViewController.photoBrowser as (AllSportDetailViewController) -> () -> ()))
+        self.SportDetailView?.cover?.addGestureRecognizer(tap)
+        self.SportDetailView?.cover?.userInteractionEnabled = true
         
     }
     
@@ -236,7 +240,27 @@ class AllSportDetailViewController: UIViewController ,AllSportTabBarDelegate,Inp
         }
         
     }
+    
+    /**
+     *  PhotoBrowser
+     */
+    
+    func photoBrowser(){
+        let photoBrowser = HZPhotoBrowser()
+        photoBrowser.imageCount = 1
+        photoBrowser.currentImageIndex = 0
+        photoBrowser.delegate = self
+        photoBrowser.show()
         
+    }
+    func photoBrowser(browser: HZPhotoBrowser!, placeholderImageForIndex index: Int) -> UIImage! {
+        return self.SportDetailView?.cover?.image
+    }
+    func photoBrowser(browser: HZPhotoBrowser!, highQualityImageURLForIndex index: Int) -> NSURL! {
+        let coverFile = self.AllSportDetail!["SportPhoto"] as? AVFile
+        return NSURL(string: coverFile!.url)
+    }
+    
 }
 
 

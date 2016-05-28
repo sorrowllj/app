@@ -202,7 +202,7 @@ class moreViewContreller: UIViewController ,UITableViewDelegate, UITableViewData
             
             break
         case 3:
-            cell?.textLabel?.text = " 反馈意见"
+            cell?.textLabel?.text = " 反馈建议"
             cell?.textLabel?.font = UIFont(name: MY_FONT, size: 16)
             
             break
@@ -238,7 +238,7 @@ class moreViewContreller: UIViewController ,UITableViewDelegate, UITableViewData
             break
         case 3:
             let vc = LCUserFeedbackAgent()
-            vc.showConversations(self, title:nil, contact: AVUser.currentUser().email)
+            vc.showConversations(self, title:nil, contact: "用户邮箱：" + AVUser.currentUser().email)
             
             break
         case 4:
@@ -273,7 +273,6 @@ class moreViewContreller: UIViewController ,UITableViewDelegate, UITableViewData
         let dict = query.findObjects()
         self.nsdataArray = dict
 
-        print(dict)
 
        
     }
