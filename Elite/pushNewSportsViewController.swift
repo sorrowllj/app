@@ -27,6 +27,12 @@ class pushNewSportsViewController: UIViewController ,SportTieleDelegate,PhotoPic
     
     var EditorName = AVUser.currentUser().username
     
+    var dateView: UIView?
+    
+    var datepicker:UIDatePicker?
+    
+    var confirmtime:UIButton?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,9 +41,7 @@ class pushNewSportsViewController: UIViewController ,SportTieleDelegate,PhotoPic
         self.SportTiele = SportTitleView(frame: CGRectMake(0,40,SCREEN_WIDTH,160))
         self.SportTiele?.delegate = self
         self.view.addSubview(self.SportTiele!)
-        
-        
-        
+
         self.tableView = UITableView(frame: CGRectMake(0, 200, SCREEN_WIDTH, SCREEN_HIGHT - 200), style: .Grouped)
         
 //      使没有内容的表格线条内容消失
@@ -52,6 +56,24 @@ class pushNewSportsViewController: UIViewController ,SportTieleDelegate,PhotoPic
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(pushNewSportsViewController.pushSportNotification), name: "pushSportNotification", object: nil)
         
+        dateView = UIView(frame: CGRectMake(0,SCREEN_HIGHT - 280 ,SCREEN_WIDTH,280))
+        dateView?.backgroundColor = UIColor.grayColor()
+        self.view.addSubview(dateView!)
+        
+        datepicker = UIDatePicker(frame: CGRectMake(0,50,320,216))
+        datepicker!.locale = NSLocale(localeIdentifier: "zh_CN")
+        datepicker?.addTarget(self, action: #selector(pushNewSportsViewController.dateChanged(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.dateView?.addSubview(self.datepicker!)
+        
+        confirmtime = UIButton(frame: CGRectMake(SCREEN_WIDTH - 60,10,50,50))
+        //confirmtime = UIButton(type: UIButtonType.System)
+        confirmtime?.setTitle("确认", forState: UIControlState.Normal)
+        confirmtime?.addTarget(self, action: #selector(pushNewSportsViewController.confirmtimefunc), forControlEvents: .TouchUpInside)
+        confirmtime?.backgroundColor = UIColor.grayColor()
+        confirmtime?.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
+        self.dateView?.addSubview(self.confirmtime!)
+        
+        dateView?.hidden = true
         
         
         
@@ -65,6 +87,15 @@ class pushNewSportsViewController: UIViewController ,SportTieleDelegate,PhotoPic
     
     deinit{
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        
+    }
+    
+    func dateChanged(datePicker : UIDatePicker)  {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy年MM月dd日 HH:mm:ss"
+        let time  = formatter.stringFromDate(datePicker.date)
+        self.SportTiele?.SportTime?.setTitle(time, forState: UIControlState.Normal)
+
         
     }
     
@@ -93,6 +124,18 @@ class pushNewSportsViewController: UIViewController ,SportTieleDelegate,PhotoPic
         }
     }
     
+    func btn1function(){
+        if dateView?.hidden == true {
+            dateView?.hidden = false
+        }else{
+            dateView?.hidden = true
+        }
+        
+    }
+    func confirmtimefunc(){
+        dateView?.hidden = true
+    }
+    
     func getImageFromPicker(image: UIImage) {
         //self.SportTiele?.SportPhoto?.setImage(image, forState: .Normal)
         
@@ -111,13 +154,13 @@ class pushNewSportsViewController: UIViewController ,SportTieleDelegate,PhotoPic
     }
     
     func open(){
-        if self.SportTiele?.SportTime?.text == ""{
+        if self.SportTiele?.SportTime?.currentTitle == ""{
             ProgressHUD.showError("没有时间，小伙伴怎么起来呢？")
         }else if self.SportTiele?.SportPlace?.text == ""{
             ProgressHUD.showError("地点你忘了输入啊，亲~")
         }else{
         let dict  = [
-            "SportTime":(self.SportTiele?.SportTime?.text)!,
+            "SportTime":(self.SportTiele?.SportTime?.currentTitle)!,
             "SportPlace":(self.SportTiele?.SportPlace?.text)!,
             "SportPhoto":(self.SportTiele?.SportPhoto?.currentImage)!,
             
