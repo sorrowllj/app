@@ -20,26 +20,57 @@ class SendToBack: NSObject {
         let image = dict["Photo"] as? UIImage
         let coverFile = AVFile(data: UIImagePNGRepresentation(image!))
 
-        coverFile.saveInBackgroundWithBlock { (successed, error) in
+//        coverFile.saveInBackgroundWithBlock { (successed, error) in
+//            if successed {
+//                object.setObject(coverFile, forKey: "Photo")
+//                object.saveInBackgroundWithBlock({ (successed, error) in
+//                    if successed {
+//                        ProgressHUD.showSuccess("上传成功")
+//                        NSNotificationCenter.defaultCenter().postNotificationName("pushPhotoNotification", object: nil, userInfo: ["success":"true"])
+//                    }
+//                    else{
+//                        ProgressHUD.showError("上传失败，请检查网络")
+//                        print(error)
+//                         NSNotificationCenter.defaultCenter().postNotificationName("pushPhotoNotification", object: nil, userInfo: ["success":"false"])
+//                    }
+//                })
+//            }
+//            else{
+//                ProgressHUD.showError("上传失败，请检查网络")
+//                 NSNotificationCenter.defaultCenter().postNotificationName("pushPhotoNotification", object: nil, userInfo: ["success":"false"])
+//            }
+//            
+//        }
+        
+        coverFile.saveInBackgroundWithBlock({ (successed, error) in
             if successed {
                 object.setObject(coverFile, forKey: "Photo")
-                object.saveInBackgroundWithBlock({ (successed, error) in
-                    if successed {
+                object.saveInBackgroundWithBlock({ (success, error) in
+                    if success {
                         ProgressHUD.showSuccess("上传成功")
                         NSNotificationCenter.defaultCenter().postNotificationName("pushPhotoNotification", object: nil, userInfo: ["success":"true"])
                     }else{
                         ProgressHUD.showError("上传失败，请检查网络")
+                        NSNotificationCenter.defaultCenter().postNotificationName("pushPhotoNotification", object: nil, userInfo: ["success":"false"])
+
                         print(error)
-                         NSNotificationCenter.defaultCenter().postNotificationName("pushPhotoNotification", object: nil, userInfo: ["success":"false"])
                     }
                 })
+            }else{
+                 ProgressHUD.showError("上传失败，请检查网络")
+                NSNotificationCenter.defaultCenter().postNotificationName("pushPhotoNotification", object: nil, userInfo: ["success":"false"])
+
+                print(error)
             }
-            else{
-                ProgressHUD.showError("上传失败，请检查网络")
-                 NSNotificationCenter.defaultCenter().postNotificationName("pushPhotoNotification", object: nil, userInfo: ["success":"false"])
-            }
-            
+            }) { (Ints) in
+                let time:Int  = Ints
+                let xNSNumber = time as NSNumber
+                let xString : String = xNSNumber.stringValue
+                ProgressHUD.show(xString)
+                print(xString)
+                
         }
         
+        //print(AVProgressBlock())
     }
 }

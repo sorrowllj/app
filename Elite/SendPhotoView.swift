@@ -24,14 +24,14 @@ class SendPhotoView: UIView {
     override init(frame: CGRect) {
         
        super.init(frame: frame)
-        self.textView = JVFloatLabeledTextView(frame: CGRectMake(10, 50 + 10, SCREEN_WIDTH - 20 , 100))
+        self.textView = JVFloatLabeledTextView(frame: CGRectMake(10, 50 + 10 + 30, SCREEN_WIDTH - 20 , 100))
         self.addSubview(self.textView!)
         self.textView?.placeholder = " 这一刻的想法..."
         self.textView?.font = UIFont(name: MY_FONT, size: 18)
         self.tintColor = UIColor.grayColor()
         //self.textView?.becomeFirstResponder()
         
-        self.SportPlacePhoto = UIButton(frame: CGRectMake(10,160 + 10,100,100))
+        self.SportPlacePhoto = UIButton(frame: CGRectMake(10,160 + 10 + 30,100,100))
         self.SportPlacePhoto?.setImage(UIImage(named: "Cover"), forState: .Normal)
         self.addSubview(self.SportPlacePhoto!)
         SportPlacePhoto?.addTarget(self, action: #selector(SendPhotoView.choicePhoto), forControlEvents: .TouchUpInside )

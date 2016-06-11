@@ -44,7 +44,7 @@ class LoginViewController: UIViewController {
                 }else if error.code == 216 {
                     ProgressHUD.showError("未验证邮箱")
                 }else if error.code == 1{
-                    ProgressHUD.showError("操作频繁")
+                    ProgressHUD.showError("登录失败次数超过限制，账号被锁定，请稍候再试")
                 }else if error.code == 217{
                     ProgressHUD.showError("无效的用户名，不允许空白用户名。")
                 }else if error.code == 218{

@@ -51,9 +51,7 @@ class moreViewContreller: UIViewController ,UITableViewDelegate, UITableViewData
     }
     
     override func viewDidAppear(animated: Bool) {
-//        let dicts = self.nsdataArray[0] as? AVObject
-//        username = (dicts!["EditorName"] as? String)
-        
+
         username = AVUser.currentUser().username
         userEmail = AVUser.currentUser().email
         tableView?.reloadData()
@@ -74,9 +72,6 @@ class moreViewContreller: UIViewController ,UITableViewDelegate, UITableViewData
 
     
     func setBasic(){
-        
-//        let dicts = self.nsdataArray[0] as? AVObject
-//        username = (dicts!["EditorName"] as? String)
         username = AVUser.currentUser().username
         userEmail = AVUser.currentUser().email
 
@@ -145,7 +140,7 @@ class moreViewContreller: UIViewController ,UITableViewDelegate, UITableViewData
         return 1
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 6
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.row == 0 {
@@ -171,8 +166,6 @@ class moreViewContreller: UIViewController ,UITableViewDelegate, UITableViewData
             cell?.accessoryType = .DisclosureIndicator
         }
         
-//        let dict  = self.dataArrays[0] as? AVObject
-//        let coverFile = dict!["UserCover"] as? AVFile
        
         switch indexPath.row {
         case 0:
@@ -182,9 +175,19 @@ class moreViewContreller: UIViewController ,UITableViewDelegate, UITableViewData
                 cell?.UserPhoto?.image = UIImage(named: "Avatar")
             }
             else{
-                cell?.UserPhoto?.sd_setImageWithURL(NSURL(string:(coverFile?.url)!), placeholderImage: UIImage(named: "Avatar"))
-                print("aa")
+                //cell?.UserPhoto?.sd_setImageWithURL(NSURL(string:(coverFile?.url)!), placeholderImage: UIImage(named: "Avatar"))
+                let file = AVFile(URL: coverFile?.url)
+                file.getThumbnail(true, width: 110, height: 114, withBlock: { (images, error) in
+                    cell?.UserPhoto?.image = images
+                    
+                })
+            
+            
             }
+            
+            
+            
+            
             //cell?.UserPhoto?.image = UIImage(named: "Avatar")
             cell?.UserName?.text = "用户名：" + username
             cell?.UserEmail?.text = "邮箱: " + userEmail
@@ -207,11 +210,16 @@ class moreViewContreller: UIViewController ,UITableViewDelegate, UITableViewData
             
             break
         case 4:
+            
+            cell?.textLabel?.text = " 清除缓存"
+            cell?.textLabel?.font = UIFont(name: MY_FONT, size: 16)
+            break
+        case 5:
             cell?.textLabel?.text = "退出登录"
             cell?.textLabel?.font = UIFont(name: MY_FONT, size: 20)
             cell?.textLabel?.textAlignment = .Center
+
             break
-            
         default:
             break
         }
@@ -227,6 +235,8 @@ class moreViewContreller: UIViewController ,UITableViewDelegate, UITableViewData
         case 0:
             let vc = UserinfoViewController()
             vc.hidesBottomBarWhenPushed = true
+            vc.userinformation = nsdataArray[0] as? AVObject
+            
             self.navigationController?.pushViewController(vc, animated: true)
             break
         case 1:
@@ -242,8 +252,15 @@ class moreViewContreller: UIViewController ,UITableViewDelegate, UITableViewData
             
             break
         case 4:
+            sleep(1)
+            if AVFile.clearAllCachedFiles(){
+                ProgressHUD.showSuccess("清除成功")
+            }
+            break
+        case 5:
             self.LogOut()
             break
+         
         default:
             break
         }
@@ -272,32 +289,17 @@ class moreViewContreller: UIViewController ,UITableViewDelegate, UITableViewData
         query.whereKey("objectId", equalTo: AVUser.currentUser().objectId)
         let dict = query.findObjects()
         self.nsdataArray = dict
-
-
-       
     }
     
+
     /**
      *  HeaderRefresh 上拉加载
      */
     func HeaderRefresh(){
-        
-//        let query = AVQuery(className: "_User")
-//        query.whereKey("objectId", equalTo: AVUser.currentUser().objectId)
-//        
-//        query.findObjectsInBackgroundWithBlock { (result, error) in
-        
-//
-//            self.dataArrays.removeAllObjects()
-//            self.dataArrays.addObjectsFromArray(result)
+        //self.nsdataArray.removeAllObjects()
+            self.FooterRefresh()
             self.tableView?.reloadData()
-        self.tableView?.mj_header.endRefreshing()
-//            print(self.dataArrays.count)
-//        }
-        
-        
-        
-        
+            self.tableView?.mj_header.endRefreshing()
         
     }
  

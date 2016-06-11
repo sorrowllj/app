@@ -62,12 +62,17 @@ class PhotoPickerViewController: UIViewController,UIImagePickerControllerDelegat
                 self.openCamera()
             }))
             self.alert?.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: { (action) -> Void in
+                self.dismissViewControllerAnimated(true, completion: { 
                 
+                })
             }))
             self.presentViewController(self.alert!, animated: true, completion: { () -> Void in
                
             })
         }
+        
+
+        
     }
 
     

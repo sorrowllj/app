@@ -31,7 +31,7 @@ class UserinfoView: UIView {
         super.init(frame: frame)
         
         self.Cover = UIButton(frame: CGRectMake(SCREEN_WIDTH - 120 ,8+40,110,114))
-        self.Cover?.setImage(UIImage(named: "touxiang"), forState: .Normal)
+        //self.Cover?.setImage(UIImage(named: "touxiang"), forState: .Normal)
         self.Cover?.layer.masksToBounds = true
         self.Cover?.layer.cornerRadius = 10
         self.addSubview(self.Cover!)

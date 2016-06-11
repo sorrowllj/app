@@ -10,6 +10,8 @@ import UIKit
 
 class UserinfoViewController: UIViewController ,UserinfoDelegate ,PhotoPickerDelegate ,VPImageCropperDelegate{
     
+    var userinformation:AVObject?
+    
     var usertitle:UserinfoView?
     
     var dict:NSDictionary?
@@ -31,6 +33,19 @@ class UserinfoViewController: UIViewController ,UserinfoDelegate ,PhotoPickerDel
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserinfoViewController.pushUserNotification), name: "pushUserNotification", object: nil)
         self.setinit()
         self.setChangeNamebtn()
+        
+        let coverfile = self.userinformation!["UserCover"] as? AVFile
+        if coverfile == nil {
+            self.usertitle?.Cover?.setImage(UIImage(named: "Avatar"), forState: .Normal)
+        }else{
+            let file = AVFile(URL: coverfile?.url)
+            file.getThumbnail(true, width: 150 , height: 280, withBlock: { (images, error) in
+                 self.usertitle?.Cover?.setImage(images, forState: UIControlState.Normal)
+                
+                            
+            })
+        }
+        
 
     }
     

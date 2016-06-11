@@ -16,6 +16,9 @@ class searchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
     
     var dataArrays = NSMutableArray()
     
+    var photoObject:AVObject?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = selfsetColor
@@ -92,6 +95,7 @@ class searchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
         let cell = self.tableView?.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as? PhotoTableViewCell
         cell?.selectionStyle = .None
         let dict = self.dataArrays[indexPath.row] as? AVObject
+        photoObject = dict
         
         let user = dict!["Users"] as? AVUser
         cell?.editorName?.text = user?.username
@@ -100,7 +104,13 @@ class searchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
         if cover == nil{
             cell?.touxiang?.image = UIImage(named: "Avatar")
         }else{
-            cell?.touxiang?.sd_setImageWithURL(NSURL(string:(cover?.url)!), placeholderImage: UIImage(named: "Avatar"))
+            let file = AVFile(URL: cover?.url)
+            file.getThumbnail(true, width: 150 , height: 280, withBlock: { (images, error) in
+                cell?.touxiang?.image = images
+                
+                
+            })
+            //cell?.touxiang?.sd_setImageWithURL(NSURL(string:(cover?.url)!), placeholderImage: UIImage(named: "Avatar"))
         }
         //cell?.touxiang?.image = UIImage(named: "Avatar")
         
@@ -119,7 +129,10 @@ class searchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
         }else{
         cell?.photo?.sd_setImageWithURL(NSURL(string:(coverFile2?.url)!), placeholderImage: UIImage(named: "Cover"))
         }
-       
+        
+
+        
+        
         return cell!
         
     }
@@ -173,8 +186,9 @@ class searchViewController: UIViewController ,UITableViewDelegate, UITableViewDa
 
         }
         
-        
     }
+    
+
     
     
 

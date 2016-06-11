@@ -105,7 +105,13 @@ class CommentViewController: UIViewController ,UITableViewDelegate,UITableViewDa
            cell?.avatarImage?.image = UIImage(named: "Avatar")
         }
         else{
-            cell?.avatarImage?.sd_setImageWithURL(NSURL(string:(cover?.url)!), placeholderImage: UIImage(named: "Avatar"))
+            let file = AVFile(URL: cover?.url)
+            file.getThumbnail(true, width: 110 , height: 140, withBlock: { (images, error) in
+                cell?.avatarImage?.image = images
+                
+                
+            })
+            //cell?.avatarImage?.sd_setImageWithURL(NSURL(string:(cover?.url)!), placeholderImage: UIImage(named: "Avatar"))
         }
         
         let date = object!["createdAt"] as? NSDate

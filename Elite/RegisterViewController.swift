@@ -35,7 +35,11 @@ class RegisterViewController: UIViewController {
         user.username = self.userName.text
         user.password = self.passWord.text
         user.email = self.emaliAddress.text
-        
+        if self.userName.text == ""{
+            ProgressHUD.showError("用户名不能为空")
+        }else if self.passWord.text == ""{
+            ProgressHUD.showError("密码不能为空")
+        }else{
         user.signUpInBackgroundWithBlock { (succeeded, error) in
             if(succeeded){
                 ProgressHUD.showSuccess("注册成功，请验证邮箱")
@@ -52,6 +56,7 @@ class RegisterViewController: UIViewController {
                 }else{
                     ProgressHUD.showError("注册失败")
                 }
+            }
             }
         }
     }

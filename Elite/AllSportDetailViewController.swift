@@ -76,12 +76,7 @@ class AllSportDetailViewController: UIViewController ,AllSportTabBarDelegate,Inp
         self.SportDetailView?.SportPlace?.text = "E地点:" + (self.AllSportDetail!["SportPlace"] as? String)!
         self.SportDetailView?.SportTitle?.text = self.AllSportDetail!["Sport_Title"] as? String
         self.SportDetailView?.EditorName?.text = "来自于:" + (self.AllSportDetail!["EditorName"] as? String)!
-//        let user = self.AllSportDetail!["Users"] as? AVUser
-//        user?.fetchInBackgroundWithBlock({ (returenUser, error) in
-//            self.SportDetailView?.EditorName?.text = "来自于:" + (returenUser as! AVUser).username
-//            
-//        })
-        
+
         let scanNumber = self.AllSportDetail!["scanNumber"] as? NSNumber
         let loveNumber = self.AllSportDetail!["loveNumber"] as? NSNumber
         let discussNumber = self.AllSportDetail!["discussNumber"] as? NSNumber

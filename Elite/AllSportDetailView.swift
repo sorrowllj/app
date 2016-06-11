@@ -44,19 +44,23 @@ class AllSportDetailView: UIView {
         self.addSubview(self.cover!)
         
         
-        self.SportTitle = UILabel(frame: CGRectMake((VIEW_HEIGHT - 16)/1.273+16,0,VIEW_WIDTH - (VIEW_HEIGHT - 16)/1.273 - 16,VIEW_HEIGHT/4 + 40))
+        self.SportTitle = UILabel(frame: CGRectMake((VIEW_HEIGHT - 16)/1.273+16,0,VIEW_WIDTH - (VIEW_HEIGHT - 16)/1.273 - 16,40))
         self.SportTitle?.font = UIFont(name: MY_FONT, size: 18)
         self.SportTitle?.textColor = MAIN_RED
         self.SportTitle?.numberOfLines = 0
         self.SportTitle?.lineBreakMode = NSLineBreakMode.ByWordWrapping
         self.addSubview(self.SportTitle!)
         
-        self.SportTime = UILabel(frame: CGRectMake((VIEW_HEIGHT - 16)/1.273+16,VIEW_HEIGHT/4 + 15,VIEW_WIDTH - (VIEW_HEIGHT - 16)/1.273 - 16,VIEW_HEIGHT/4))
+        self.SportTime = UILabel(frame: CGRectMake((VIEW_HEIGHT - 16)/1.273+16,VIEW_HEIGHT/4 + 10,VIEW_WIDTH - (VIEW_HEIGHT - 16)/1.273 - 16,40))
         self.SportTime?.font = UIFont(name: MY_FONT, size: 16)
+        self.SportTime?.numberOfLines = 0
+        self.SportTime?.lineBreakMode = NSLineBreakMode.ByWordWrapping
         self.addSubview(self.SportTime!)
         
-        self.SportPlace =  UILabel(frame: CGRectMake((VIEW_HEIGHT - 16)/1.273+16,15 + 8 + VIEW_HEIGHT/4+VIEW_HEIGHT/6,VIEW_WIDTH - (VIEW_HEIGHT - 16)/1.273 - 16,VIEW_HEIGHT/6))
+        self.SportPlace =  UILabel(frame: CGRectMake((VIEW_HEIGHT - 16)/1.273+16,10 + VIEW_HEIGHT/4+VIEW_HEIGHT/6,VIEW_WIDTH - (VIEW_HEIGHT - 16)/1.273 - 16,40))
         self.SportPlace?.font = UIFont(name: MY_FONT, size: 15)
+        self.SportPlace?.numberOfLines = 0
+        self.SportPlace?.lineBreakMode = NSLineBreakMode.ByWordWrapping
         self.addSubview(self.SportPlace!)
         
         self.EditorName = UILabel(frame: CGRectMake((VIEW_HEIGHT - 16)/1.273 + 16, 16 + VIEW_HEIGHT / 4 + (VIEW_HEIGHT / 6)*2, VIEW_WIDTH - (VIEW_HEIGHT - 16)/1.273 - 16, VIEW_HEIGHT / 6 ))

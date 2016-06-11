@@ -29,13 +29,9 @@ class rankViewController: UIViewController ,UITableViewDelegate, UITableViewData
             })
             
         }
-        
-        
-        
         /**
          设置tableview
          */
-        
         self.tableView = UITableView(frame: self.view.frame)
         self.tableView?.delegate = self
         self.tableView?.dataSource = self
@@ -126,9 +122,17 @@ class rankViewController: UIViewController ,UITableViewDelegate, UITableViewData
         if coverFile == nil {
             cell?.cover?.image = UIImage(named: "Cover")
         }else{
-            cell?.cover?.sd_setImageWithURL(NSURL(string:(coverFile?.url)!), placeholderImage: UIImage(named: "Cover"))
+            let file = AVFile(URL: coverFile?.url)
+            file.getThumbnail(true, width: 150 , height: 280, withBlock: { (images, error) in
+                    cell?.cover?.image = images
+   
+                
+            })
+            //cell?.cover?.sd_setImageWithURL(NSURL(string:(coverFile?.url)!), placeholderImage: UIImage(named: "Cover"))
+
+            
         }
-        //cell?.cover?.sd_setImageWithURL(NSURL(string:(coverFile?.url)!), placeholderImage: UIImage(named: "Cover"))
+
         
         
         return cell!

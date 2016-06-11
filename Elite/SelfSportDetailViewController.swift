@@ -77,16 +77,11 @@ class SelfSportDetailViewController: UIViewController , SelfSportTabBarDelegate 
         let coverFile = self.SelfSportDetail!["SportPhoto"] as? AVFile
         self.SportDetailView?.cover!.sd_setImageWithURL(NSURL(string:(coverFile?.url)!), placeholderImage: UIImage(named: "Cover"))
         
-        self.SportDetailView?.SportTime?.text = "E时间：" + (self.SelfSportDetail!["SportTime"] as? String)!
+        self.SportDetailView?.SportTime?.text = "E时间:" + (self.SelfSportDetail!["SportTime"] as? String)!
         self.SportDetailView?.SportPlace?.text = "E地点:" + (self.SelfSportDetail!["SportPlace"] as? String)!
-        self.SportDetailView?.SportTitle?.text = self.SelfSportDetail!["Sport_Title"] as? String
+        self.SportDetailView?.SportTitle?.text = (self.SelfSportDetail!["Sport_Title"] as? String)! 
         self.SportDetailView?.EditorName?.text = "来自于:" + (self.SelfSportDetail!["EditorName"] as? String)!
-        
-//        let user = self.SelfSportDetail!["Users"] as? AVUser
-//        user?.fetchInBackgroundWithBlock({ (returenUser, error) in
-//            self.SportDetailView?.EditorName?.text = "来自于:" + (returenUser as! AVUser).username
-//            
-//        })
+
         
         let scanNumber = self.SelfSportDetail!["scanNumber"] as? NSNumber
         let loveNumber = self.SelfSportDetail!["loveNumber"] as? NSNumber

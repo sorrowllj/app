@@ -41,14 +41,14 @@ class PushSports: NSObject {
             }else{
                 NSNotificationCenter.defaultCenter().postNotificationName("pushSportNotification", object: nil, userInfo: ["success":"false"])
             }
-        })
-        
-        
-        
-        
-        
-        
-        
+        }){ (Ints) in
+            let time:Int  = Ints
+            let xNSNumber = time as NSNumber
+            let xString : String = xNSNumber.stringValue
+            ProgressHUD.show(xString)
+            print(xString)
+        }
+       
         
     }
 

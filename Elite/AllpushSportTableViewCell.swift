@@ -40,8 +40,8 @@ class AllpushSportTableViewCell: UITableViewCell {
         }
         self.backgroundView?.backgroundColor = selfsetColor
         self.SportTitle = UILabel(frame: CGRectMake(78,8,self.VIEW_WIDTH,25))
-        self.SportTime = UILabel(frame: CGRectMake(78,38,242,25))
-        self.SportPlace = UILabel(frame: CGRectMake(78,65,242,25))
+        self.SportTime = UILabel(frame: CGRectMake(78,38,SCREEN_WIDTH - 78,25))
+        self.SportPlace = UILabel(frame: CGRectMake(78,65,SCREEN_WIDTH - 78,25))
         self.More = UILabel(frame: CGRectMake(78,80,242,25))
         self.sendTime = UILabel(frame: CGRectMake(SCREEN_WIDTH - 78 - 20,80,242,25))
         
